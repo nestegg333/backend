@@ -4,3 +4,7 @@ from django.contrib import admin
 
 from polls.models import Pet
 admin.site.register(Pet)
+from polls.models import Owner
+admin.site.register(Owner)
+from polls.models import Payment
+admin.site.register(Payment)
