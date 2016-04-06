@@ -8,8 +8,8 @@ class Pet(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField('auto_now_add=True')
     active = models.BooleanField()
-    baseCost = models.PositiveIntegerField()
-
+    def __str__(self):
+    	return self.pet_text
 
 class Owner(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,8 +23,10 @@ class Owner(models.Model):
 	numTrans = models.PositiveIntegerField()
 	lastPay = models.DateField() # need to retrieve Payment
 
+
 class Payment(models.Model):
-	user = models.ForeignKey(Owner, on_delete=models.CASCADE)
+	owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
 	date = models.DateField('auto_now_add=True')
 	amount = models.PositiveIntegerField()
+
 
