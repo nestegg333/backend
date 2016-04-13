@@ -9,6 +9,8 @@ class Pet(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField()
+    def _str_(self):
+    	return self.name
 
 
 class Owner(models.Model):
