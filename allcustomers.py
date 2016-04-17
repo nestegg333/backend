@@ -1,10 +1,11 @@
 import requests
 import json
 
-oauthToken = 'ePuTwtLSTKoJneHpTGmW294VhmSGdKw46gxvq0FKGMgUk8JrLO'
+oauthToken = 'yZOlWWyR0BRp4vsZZ7NcPLEVdwmnyKiAOmbUvYtcqtILywtVBR'
 
 url = 'https://api-uat.dwolla.com/customers'
 headers = {'Accept': 'application/vnd.dwolla.v1.hal+json',
-           'Authorization': 'Bearer ePuTwtLSTKoJneHpTGmW294VhmSGdKw46gxvq0FKGMgUk8JrLO'}
+           'Authorization': 'Bearer yZOlWWyR0BRp4vsZZ7NcPLEVdwmnyKiAOmbUvYtcqtILywtVBR'}
 customers = requests.get(url, headers=headers)
 parsed_json = json.loads(customers.text)
+print parsed_json
