@@ -24,10 +24,10 @@ except:
 	fund_sources = funding_api.get_customer_funding_sources(sys.argv[2])
 	fs = str(fund_sources._embedded['funding-sources'][0]['_links']['self']['href'])
 
+print fs
 ret = funding_api.id(fs)
-print ret
 
-# funding_api.micro_deposits(ret.id, body = {
+# x = funding_api.micro_deposits(ret.id, body = {
 #   "amount1": {
 #     "value": "0.03",
 #     "currency": "USD"
@@ -38,4 +38,5 @@ print ret
 #   }
 # })
 
-print ret.status
+# print ret.status
+
