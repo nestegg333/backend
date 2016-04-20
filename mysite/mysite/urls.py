@@ -15,7 +15,29 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from rest_framework import routers
+from django.conf.urls import include
+from polls import views
+
+router = routers.DefaultRouter()
+#makes sure that the API endpoints work
+router.register(r'api/users', views.UserViewSet)
+router.register(r'api/owners', views.OwnerViewSet)
+router.register(r'api/payments', views.PaymentViewSet)
+router.register(r'api/pets', views.PetViewSet)
+admin.autodiscover()
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url('^', include('django.contrib.auth.urls')),
+    url(r'^auth/', include('djoser.urls.authtoken')),
+    url(r'^auth/', include('djoser.urls')),
+    url(r'^owners/$', views.owners_list),
+    url(r'^owner/(?P<pk>[0-9]+)/$', views.owner_detail),
+    url(r'^pets/$', views.pets_list),
+    url(r'^pet/(?P<pk>[0-9]+)/$', views.pet_detail),
+    url(r'^payments/(?P<pk>[0-9]+)/$', views.owner_payment_list),
 ]
