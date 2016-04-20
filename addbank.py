@@ -27,16 +27,21 @@ except:
 print fs
 ret = funding_api.id(fs)
 
-# x = funding_api.micro_deposits(ret.id, body = {
-#   "amount1": {
-#     "value": "0.03",
-#     "currency": "USD"
-#   },
-#   "amount2": {
-#     "value": "0.01",
-#     "currency": "USD"
-#   }
-# })
+try:
+	funding_api.micro_deposits(ret.id, body = {})
 
-# print ret.status
+	x = funding_api.micro_deposits(ret.id, body = {
+	  "amount1": {
+	    "value": "0.03",
+	    "currency": "USD"
+	  },
+	  "amount2": {
+	    "value": "0.01",
+	    "currency": "USD"
+	  }
+	})
+except:
+	print ret.status
+
+print ret.status
 
