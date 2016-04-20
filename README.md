@@ -61,4 +61,4 @@
 * Get list of all payments for an owner
 
 #### POST /payments/{pk}
-* Create a payment for an owner
+* Make a payment for the owner
