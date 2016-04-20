@@ -34,5 +34,10 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url('^', include('django.contrib.auth.urls')),
     url(r'^auth/', include('djoser.urls.authtoken')),
-    url(r'^auth/', include('djoser.urls'))
+    url(r'^auth/', include('djoser.urls')),
+    url(r'^owners/$', views.owners_list),
+    url(r'^owner/(?P<pk>[0-9]+)/$', views.owner_detail),
+    url(r'^pets/$', views.pets_list),
+    url(r'^pet/(?P<pk>[0-9]+)/$', views.pet_detail),
+    url(r'^payments/(?P<pk>[0-9]+)/$', views.owner_payment_list),
 ]
