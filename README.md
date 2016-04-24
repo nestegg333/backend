@@ -18,6 +18,8 @@
 * GET, POST etc. requests to update owners, pets
 * Make payment method (but still need to figure out how to set amount) that creates a new payment and updates the numTrans
 
+### 4/20/16 (Peter)
+Made authentication token refresher, customer creation, bank addition and verification, transfers between two bank accounts. 
 
 ## API
 
@@ -62,3 +64,21 @@
 
 #### POST /payments/{pk}
 * Make a payment for the owner
+
+## Dwolla API
+
+## Get Access token
+* Refreshes auth token from current refresh token provided by Dwolla SDK.
+
+## Add Customer
+* Adds a customer given its oauthtoken, first, last, email, address, city, state, postalcode, dob, ssn, phonenum.  Returns an http response that has its customer id.
+
+## Add Bank
+* Adds and verifies a bank.  Takes in oauthtoken, custid, routingnumber, accountnumber, nickname.   Returns an http response that has its bank id.
+
+## Transfer
+* Make a transfer between two bank accounts.  Takes in oauthtoken, source, dest, value.  Returns the transfer id of the transfer.  
+
+
+
+
