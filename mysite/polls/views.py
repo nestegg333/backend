@@ -141,16 +141,16 @@ class UserViewSet(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 
 class OwnerViewSet(viewsets.ModelViewSet):
-    # this fetches all the rows of data in the Fish table
+    # this fetches all the rows of data in the Owner table
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
-    # this fetches all the rows of data in the Fish table
+    # this fetches all the rows of data in the Payment table
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
 class PetViewSet(viewsets.ModelViewSet):
-    # this fetches all the rows of data in the Fish table
+    # this fetches all the rows of data in the Pet table
     queryset = Pet.objects.all()
     serializer_class = PetSerializer
