@@ -1,5 +1,6 @@
 import sys
 import dwollaswagger
+import requests
 
 if len(sys.argv) < 11:
 	print "oauthtoken, first, last, email, address, city, state, postalcode, dob, ssn, phonenum"
@@ -33,6 +34,8 @@ def makeCust(first, last, email, address, city, state, postalcode, dob, ssn, pho
 #makeCust("peter", "chen", "pcchen@princeton.edu", "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
 
 #A customer with the specified email already exists.
-
-makeCust(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
-
+try:
+    makeCust(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
+except Exception, e:
+    print e.body
+    sys.exit(1)
