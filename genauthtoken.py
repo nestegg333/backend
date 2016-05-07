@@ -15,6 +15,7 @@ payload = {
 
 new_tok = requests.post(url, data=payload)
 parsed_json = json.loads(new_tok.text)
+# print parsed_json['refresh_token']
 print parsed_json['access_token']
 
 

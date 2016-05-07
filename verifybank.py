@@ -8,7 +8,6 @@ funding_api = funding_api = dwollaswagger.FundingsourcesApi(client)
 
 fs = sys.argv[2]
 ret = funding_api.id(fs)
-print ret.status
 
 try:
 	funding_api.micro_deposits(ret.id, body = {})
@@ -25,8 +24,6 @@ try:
 		})
 except Exception, e:
 	print fs
-	print ret.status
 	sys.exit(1)
 
 print fs
-print ret.status

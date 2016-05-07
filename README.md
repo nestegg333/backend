@@ -72,13 +72,24 @@ Made authentication token refresher, customer creation, bank addition and verifi
 
 ## Add Customer
 * Adds a customer given its oauthtoken, first, last, email, address, city, state, postalcode, dob, ssn, phonenum.  Returns an http response that has its customer id.
+* For test input use fake data. email can be test, however no email can be used twice (dwolla does not support deleting emails yet). Address, city, and state each should be a single string (i.e. 1234-frist-center).  Postal code should be 5 digits.  Phone number must be 10 digits. 
+* Example:$
+* python customergen.py hnd5cmbW3vYM8cypL9ShS5pwdah0ukgri2g7vKBksrCwH9CjsW John Smith jsmith@test.com 1458-frist-center Princeton NJ 08544 1994-01-01 1234 3046852269 
 
 ## Add Bank
 * Adds and verifies a bank.  Takes in oauthtoken, custid, routingnumber, accountnumber, nickname.   Returns an http response that has its bank id.
+* Example:$ python addbank.py 1q3R6esMTHc3HqXkD2VFXNB8gHqDRc6XbupWaRZhJd2mWsla8n https://api-uat.dwolla.com/customers/ae4359df-c628-477b-8acc-140c785b1dcd 222222226 123456781 tests1
+* Output: https://api-uat.dwolla.com/funding-sources/6e2a2153-be6f-4201-9f20-83ea06432ab1
+
+## Verify Bank
+* Verifies Bank info.  Take in oauthtoken and funding source.
+* Example:$ python verifybank.py 1q3R6esMTHc3HqXkD2VFXNB8gHqDRc6XbupWaRZhJd2mWsla8n https://api-uat.dwolla.com/funding-sources/6e2a2153-be6f-4201-9f20-83ea06432ab1
+* Output: https://api-uat.dwolla.com/funding-sources/6e2a2153-be6f-4201-9f20-83ea06432ab1
 
 ## Transfer
-* Make a transfer between two bank accounts.  Takes in oauthtoken, source, dest, value.  Returns the transfer id of the transfer.  
-
+* Make a transfer between two bank accounts.  Takes in oauthtoken, source, dest, value.  Returns the transfer id of the transfer. Transition Bank Account('https://api-uat.dwolla.com/funding-sources/3b0ab312-d24a-4ade-adc3-abe35ef3383b')
+* Example:$ python transfer.py 1q3R6esMTHc3HqXkD2VFXNB8gHqDRc6XbupWaRZhJd2mWsla8n https://api-uat.dwolla.com/funding-sources/3b0ab312-d24a-4ade-adc3-abe35ef3383b https://api-uat.dwolla.com/funding-sources/72056fd2-9bca-4524-bc2e-8bea0775480e 100
+*Output:$ https://api-uat.dwolla.com/transfers/26655660-7114-e611-80e1-0aa34a9b2388
 
 
 
