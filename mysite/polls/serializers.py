@@ -31,8 +31,9 @@ class PaymentSerializer(serializers.HyperlinkedModelSerializer):
 
 class TokenSerializer(serializers.ModelSerializer):
     auth_token = serializers.CharField(source='key')
+    id = serializers.IntegerField(source='user.id')
+    username = serializers.CharField(source='user.username')
     class Meta:
         model = Token
-        user = UserSerializer()
-        fields = ('auth_token', 'user')
+        fields = ('auth_token', 'id', 'username')
 

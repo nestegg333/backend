@@ -45,7 +45,7 @@ class Owner(models.Model):
 		return ''.join(random.sample(order, len(order)))
 
 	user = AutoOneToOneField(User, on_delete=models.CASCADE)
-	pet = AutoOneToOneField(Pet, on_delete=models.CASCADE)
+	pet = AutoOneToOneField(Pet, on_delete=models.CASCADE, null=True)
 	numPets = models.PositiveIntegerField(default=1)
 	goal = models.PositiveIntegerField(default=100)
 	progress = models.IntegerField(default=0)
@@ -55,9 +55,6 @@ class Owner(models.Model):
 	_baseCost = property(baseCost)
 	numTrans = models.PositiveIntegerField(default=0)
 	lastPay = models.DateField(blank=True, null=True) 
-
-
-
 
 
 class Payment(models.Model):
