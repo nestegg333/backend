@@ -17,6 +17,7 @@ from polls.serializers import PetSerializer
 def index(request):
     return HttpResponse("Welcome to NestEgg.")
 
+
 @csrf_exempt
 def owners_list(request):
     """
@@ -133,8 +134,6 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
-
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
