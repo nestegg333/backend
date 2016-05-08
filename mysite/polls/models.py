@@ -55,7 +55,7 @@ class Owner(models.Model):
 	_baseCost = property(baseCost)
 	numTrans = models.PositiveIntegerField(default=0)
 	lastPay = models.DateField(blank=True, null=True) 
-	# need to retrieve Payment
+
 
 
 
