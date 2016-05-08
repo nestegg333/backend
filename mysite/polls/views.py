@@ -150,7 +150,7 @@ class CustomLoginView(LoginView):
         token, _ = Token.objects.get_or_create(user=user)
         user_logged_in.send(sender=user.__class__, request=self.request, user=user)
         return Response(
-            data=TokenSerializer(token).data,
+            data=TokenSerializer(token, context={'request': self.request}).data,
             status=status.HTTP_200_OK,
         )
 
