@@ -94,12 +94,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-DJOSER = {
-    'SERIALIZERS': {
-        'token' : 'polls.serializers.TokenSerializer',
-    },
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
