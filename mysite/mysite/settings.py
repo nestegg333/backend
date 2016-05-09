@@ -144,3 +144,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+
+#CronJobs
+
+CRONJOBS = [
+    ('0,30 * * * *', 'mysite.cron.gentoken')
+]
