@@ -4,7 +4,10 @@ import sys
 import time
 
 
-def gentoken(inputtoken):
+def gentoken():
+	frefresh = open('refresh_token.txt', 'r')
+	inputtoken = frefresh.read()
+	print inputtoken
 	url = 'https://uat.dwolla.com/oauth/v2/token'
 
 	payload = {
@@ -16,12 +19,12 @@ def gentoken(inputtoken):
 
 	new_tok = requests.post(url, data=payload)
 	parsed_json = json.loads(new_tok.text)
-	refreshtoken = parsed_json['refresh_token']
-	accesstoken = parsed_json['access_token']
-	print refreshtoken
-	print accesstoken
+	newRefresh = parsed_json['refresh_token']
+	newAccess = parsed_json['access_token']
 
-	time.sleep(3000)
-	gentoken(refreshtoken)
+	frefresh = open('refresh_token.txt', 'w+')
+	faccess = open('access_token.txt', 'w+')
+	faccess.write(newAccess)
+	frefresh.write(newRefresh)
 
-gentoken(sys.argv[1])
+gentoken()
