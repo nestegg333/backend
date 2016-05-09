@@ -69,12 +69,15 @@ Made authentication token refresher, customer creation, bank addition and verifi
 
 ## Get Access token
 * Refreshes auth token from current refresh token provided by Dwolla SDK.
+* Example:$ python genauthtoken.py 4jg4SaM6QdXJbN3TUyCGPqgnTnozCHwx7NLfjPux4dDXlSSUhi
+* Output: xluHAUSRMqCDjtPeZbSSAAmvVvelpTYwIupxXb0SZYprDAZebF
 
 ## Add Customer
 * Adds a customer given its oauthtoken, first, last, email, address, city, state, postalcode, dob, ssn, phonenum.  Returns an http response that has its customer id.
 * For test input use fake data. email can be test, however no email can be used twice (dwolla does not support deleting emails yet). Address, city, and state each should be a single string (i.e. 1234-frist-center).  Postal code should be 5 digits.  Phone number must be 10 digits. 
 * Example:$
-* python customergen.py hnd5cmbW3vYM8cypL9ShS5pwdah0ukgri2g7vKBksrCwH9CjsW John Smith jsmith@test.com 1458-frist-center Princeton NJ 08544 1994-01-01 1234 3046852269 
+* python customergen.py xluHAUSRMqCDjtPeZbSSAAmvVvelpTYwIupxXb0SZYprDAZebF John Smith js@test.com 1458-frist-center Princeton NJ 085 1994-01-01 1234 3046852269
+* Output: https://api-uat.dwolla.com/customers/b8b16c93-63ef-4c2e-9cfb-12de65008bd9
 
 ## Add Bank
 * Adds and verifies a bank.  Takes in oauthtoken, custid, routingnumber, accountnumber, nickname.   Returns an http response that has its bank id.

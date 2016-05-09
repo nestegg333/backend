@@ -1,8 +1,8 @@
 import requests
 import json
 import sys
+import time
 
-#refresh token YkGO975Bcttuxq5xm4tuhYelJwBfIyhjquGkDIsqcsq20f3yxP
 
 def genToken():
 	url = 'https://uat.dwolla.com/oauth/v2/token'
@@ -16,21 +16,5 @@ def genToken():
 
 	new_tok = requests.post(url, data=payload)
 	parsed_json = json.loads(new_tok.text)
-	# print parsed_json['refresh_token']
 	return parsed_json['refresh_token']
-
-
-
-# client_id = 'KORB1uPLiCs2vO96B4Hiwxf8PsQ3Vk43I4k4oopegs5HjrmkLd'
-# redirect_uri = 'https://tokengenerator.dwolla.com/redirect'
-# scope = 'send|transactions|funding|managecustomers'
-
-# url = 'https://uat.dwolla.com/oauth/v2/authenticate?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=' + scope
-
-# # payload = {
-# #   "client_id": "KORB1uPLiCs2vO96B4Hiwxf8PsQ3Vk43I4k4oopegs5HjrmkLd",
-# #   "client_secret": "6919gTg6EcX1EK2YulRvDgWeDuMTvIFUt3krwux52e4REeP7Mq",
-# #   "grant_type": "client_credentials"
-# # }
-
-# new_tok = requests.post(url)
+gentoken(sys.argv[1])
