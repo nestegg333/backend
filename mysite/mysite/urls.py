@@ -33,6 +33,8 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url('^', include('django.contrib.auth.urls')),
+    url(r'^auth/login/$', views.CustomLoginView.as_view(), name='login'),
+    url(r'^auth/register/$', views.CustomRegistrationView.as_view(), name='register'),
     url(r'^auth/', include('djoser.urls.authtoken')),
     url(r'^auth/', include('djoser.urls')),
     url(r'^owners/$', views.owners_list),

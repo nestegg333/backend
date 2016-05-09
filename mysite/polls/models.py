@@ -45,7 +45,7 @@ class Owner(models.Model):
 		return ''.join(random.sample(order, len(order)))
 
 	user = AutoOneToOneField(User, on_delete=models.CASCADE)
-	pet = AutoOneToOneField(Pet, on_delete=models.CASCADE)
+	pet = AutoOneToOneField(Pet, on_delete=models.CASCADE, null=True)
 	numPets = models.PositiveIntegerField(default=1)
 	goal = models.PositiveIntegerField(default=100)
 	progress = models.IntegerField(default=0)
@@ -54,10 +54,14 @@ class Owner(models.Model):
 	_interactionOrder = property(interactionOrder)
 	_baseCost = property(baseCost)
 	numTrans = models.PositiveIntegerField(default=0)
-	lastPay = models.DateField(blank=True, null=True) 
-
-
-
+	lastPay = models.DateField(blank=True, null=True)
+	address = models.CharField(max_length=100, default="123 Test")
+	city = models.CharField(max_length=100, default="Princeton")
+	state = models.CharField(max_length=100, default="NJ")
+	postalcode = models.CharField(max_length=5, default="08544")
+	dob = models.CharField(max_length=10, default="1995-01-01")
+	ssn = models.CharField(max_length=15, default="1234")
+	phone = models.CharField(max_length=15, default="1234567890") 
 
 
 class Payment(models.Model):

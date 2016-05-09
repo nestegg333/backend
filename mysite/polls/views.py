@@ -12,10 +12,22 @@ from polls.serializers import UserSerializer
 from polls.serializers import OwnerSerializer
 from polls.serializers import PaymentSerializer
 from polls.serializers import PetSerializer
+from polls.serializers import TokenSerializer
+from djoser.views import LoginView
+from djoser.views import RegistrationView
+from django.contrib.auth import get_user_model, user_logged_in, user_logged_out
+from rest_framework import generics, permissions, status, response, views
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+from django.contrib.auth.tokens import default_token_generator
+from djoser import signals, settings
+from polls import genauthtoken, customergen
 
 # Create your views here.
 def index(request):
     return HttpResponse("Welcome to NestEgg.")
+
 
 @csrf_exempt
 def owners_list(request):
@@ -34,6 +46,7 @@ def owners_list(request):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
+
 
 @csrf_exempt
 def owner_detail(request, pk):
@@ -134,7 +147,28 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-
+class CustomLoginView(LoginView):
+    def action(self, serializer):
+        user = serializer.user
+        token, _ = Token.objects.get_or_create(user=user)
+        user_logged_in.send(sender=user.__class__, request=self.request, user=user)
+        return Response(
+            data=TokenSerializer(token, context={'request': self.request}).data,
+            status=status.HTTP_200_OK,
+        )
+class CustomRegistrationView(RegistrationView):
+    ## how to create users using Djoser 
+    # original Djoser RegistrationView
+    # https://github.com/sunscrapers/djoser/blob/master/djoser/views.py
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
+        # gets a token
+        token = genauthtoken.genToken()
+        # need to somehow get the user that was just created
+        customer = customergen.makeCust(token, "", "","email", "", "", "", "", "1", "1234", "5555555555")
+        if settings.get('SEND_ACTIVATION_EMAIL'):
+            self.send_email(**self.get_send_email_kwargs(instance))
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()

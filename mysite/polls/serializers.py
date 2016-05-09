@@ -4,6 +4,7 @@ from polls.models import Pet
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers
+from djoser import settings
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -21,7 +22,7 @@ class OwnerSerializer(serializers.HyperlinkedModelSerializer):
         model = Owner
         user = UserSerializer()
         pet = PetSerializer()
-        fields = ('id', 'user', 'pet', 'numPets', 'goal', 'progress', 'checkNum', 'saveNum', 'interactionOrder', 'baseCost', 'numTrans', 'lastPay')
+        fields = ('id', 'user', 'pet', 'numPets', 'goal', 'progress', 'checkNum', 'saveNum', 'interactionOrder', 'baseCost', 'numTrans', 'lastPay', 'address', 'city', 'state', 'postalcode', 'dob', 'ssn', 'phone')
 
 class PaymentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -31,8 +32,9 @@ class PaymentSerializer(serializers.HyperlinkedModelSerializer):
 
 class TokenSerializer(serializers.ModelSerializer):
     auth_token = serializers.CharField(source='key')
+    user = UserSerializer()
     class Meta:
         model = Token
-        user = UserSerializer()
         fields = ('auth_token', 'user')
+
 
