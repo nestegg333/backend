@@ -132,10 +132,11 @@ def owner_payment_list(request, pk):
         if serializer.is_valid():
             serializer.save()
             payment = serializer.data
+            # make actual transfer on dwolla
             token = genauthtoken.genToken()
             transitionaccount = 'https://api-uat.dwolla.com/funding-sources/3b0ab312-d24a-4ade-adc3-abe35ef3383b'
-            transfer.maketrans(token, owner.checkSource, transitionaccount, str(payment.amount))
-            transfer.maketrans(token, transitionaccount, owner.saveSource, str(payment.amount))
+            trans1 = transfer.maketrans(token, owner.checkSource, transitionaccount, str(payment.amount))
+            trans2 = transfer.maketrans(token, transitionaccount, owner.saveSource, str(payment.amount))
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
 
