@@ -163,7 +163,10 @@ class CustomRegistrationView(RegistrationView):
     # https://github.com/sunscrapers/djoser/blob/master/djoser/views.py
     def perform_create(self, serializer):
         user = serializer.validated_data
-        email = str(user['username']) + '@gmail.com'
+        if (user['email'] == ""):
+            email = str(user['username']) + '@gmail.com'
+        else:
+            email = str(user['email'])
         instance = serializer.save()
         signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
         # gets a token
