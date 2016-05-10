@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, settings
-from mysite import genauthtoken, customergen, addbank, verifybank
+from mysite import genauthtoken, customergen, addbank, verifybank, transfer
 import json
 
 # Create your views here.
@@ -131,6 +131,11 @@ def owner_payment_list(request, pk):
         serializer = PaymentSerializer(data=data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
+            payment = serializer.data
+            token = genauthtoken.genToken()
+            transitionaccount = 'https://api-uat.dwolla.com/funding-sources/3b0ab312-d24a-4ade-adc3-abe35ef3383b'
+            transfer.maketrans(token, owner.checkSource, transitionaccount, str(payment.amount))
+            transfer.maketrans(token, transitionaccount, owner.saveSource, str(payment.amount))
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
 
