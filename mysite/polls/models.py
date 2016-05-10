@@ -54,7 +54,7 @@ class Owner(models.Model):
 	_interactionOrder = property(interactionOrder)
 	_baseCost = property(baseCost)
 	numTrans = models.PositiveIntegerField(default=0)
-	lastPay = models.DateField(blank=True, null=True)
+	lastPay = models.CharField(max_length=10, blank=True, null=True)
 	address = models.CharField(max_length=100, default="123 Test")
 	city = models.CharField(max_length=100, default="Princeton")
 	state = models.CharField(max_length=100, default="NJ")

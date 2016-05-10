@@ -165,8 +165,9 @@ class CustomRegistrationView(RegistrationView):
         signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
         # gets a token
         token = genauthtoken.genToken()
+        # email = instance + '@gmail.com'
         # need to somehow get the user that was just created
-        customer = customergen.makeCust(token,"peter", "chen", "pcchen@princeton.edu", "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
+        customer = customergen.makeCust(token,"peter", "chen", "email", "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
         if settings.get('SEND_ACTIVATION_EMAIL'):
             self.send_email(**self.get_send_email_kwargs(instance))
 
