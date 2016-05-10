@@ -23,6 +23,7 @@ from rest_framework.reverse import reverse
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, settings
 from mysite import genauthtoken, customergen
+import json
 
 # Create your views here.
 def index(request):
@@ -165,9 +166,13 @@ class CustomRegistrationView(RegistrationView):
         signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
         # gets a token
         token = genauthtoken.genToken()
-        # email = instance + '@gmail.com'
+        user = serializer.data
+        email = str(user['email'])
+        user = User.objects.get(id=user['id'])
+        #first_name = str(user.first_name)
+        #last_name = str(user.last_name)
         # need to somehow get the user that was just created
-        customer = customergen.makeCust(token,"peter", "chen", "email", "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
+        customer = customergen.makeCust(token, "test", "test2", email, "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
         if settings.get('SEND_ACTIVATION_EMAIL'):
             self.send_email(**self.get_send_email_kwargs(instance))
 
