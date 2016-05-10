@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, settings
-from mysite import genauthtoken, customergen
+from mysite import genauthtoken, customergen, addbank, verifybank
 import json
 
 # Create your views here.
@@ -169,11 +169,26 @@ class CustomRegistrationView(RegistrationView):
         else:
             email = str(user['email'])
         instance = serializer.save()
+        user = serializer.data
+        user = User.objects.get(id=user['id'])
+        owner = user.owner
+        checkNum = str(owner.checkNum)
+        saveNum = str(owner.saveNum)
+        routeNum = str(owner.routeNum)
         signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
         # gets a token
         token = genauthtoken.genToken()
         # makes a customer on Dwolla
-        customer = customergen.makeCust(token, "test", "test2", email, "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
+        customer = customergen.makeCust(token, "test", "test2", email, str(owner.address), str(owner.city), str(owner.state), str(owner.postalcode), str(owner.dob), str(owner.ssn), str(owner.phone))
+        # send bank account info to Dwolla
+        checkbank = addbank.makeBank(token, customer, routeNum, checkNum, str(user.username))
+        savebank = addbank.makeBank(token, customer, routeNum, saveNum, str(user.username))
+        verifybank.verify(token, checkbank)
+        verifybank.verify(token, savebank)
+        owner.custDwolla = customer
+        owner.checkSource = checkbank
+        owner.saveSource = savebank
+        owner.save()
         if settings.get('SEND_ACTIVATION_EMAIL'):
             self.send_email(**self.get_send_email_kwargs(instance))
 

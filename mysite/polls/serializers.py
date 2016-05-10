@@ -20,7 +20,7 @@ class OwnerSerializer(serializers.HyperlinkedModelSerializer):
         model = Owner
         user = UserSerializer()
         pet = PetSerializer()
-        fields = ('id', 'user', 'pet', 'numPets', 'goal', 'progress', 'checkNum', 'saveNum', 'interactionOrder', 'baseCost', 'numTrans', 'lastPay', 'address', 'city', 'state', 'postalcode', 'dob', 'ssn', 'phone')
+        fields = ('id', 'user', 'pet', 'numPets', 'goal', 'progress', 'checkNum', 'saveNum', 'routeNum', 'interactionOrder', 'baseCost', 'numTrans', 'lastPay', 'address', 'city', 'state', 'postalcode', 'dob', 'ssn', 'phone', 'custDwolla', 'checkSource', 'saveSource')
 
 class PaymentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

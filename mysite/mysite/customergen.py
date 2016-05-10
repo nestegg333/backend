@@ -6,6 +6,7 @@ Purpose: Adds customer to Dwolla API. Please check the Readme for more details.
 import sys
 import dwollaswagger
 import requests
+import json
 
 
 def makeCust(token, first, last, email, address, city, state, postalcode, dob, ssn, phonenum):
