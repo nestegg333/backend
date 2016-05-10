@@ -4,7 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from annoying.fields import AutoOneToOneField
 
-
 class Pet(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
@@ -15,6 +14,7 @@ class Pet(models.Model):
 
 class Owner(models.Model):
 
+	# determines the base cost of interactions based on the savings goal
 	@property
 	def baseCost(self):
 		goal = self.goal * 100
@@ -36,6 +36,7 @@ class Owner(models.Model):
 		# e.g., $2.12 -> 212
 		return baseCost
 
+	# determines the random interaction order of the month
 	@property
 	def interactionOrder(self):
 		import random 

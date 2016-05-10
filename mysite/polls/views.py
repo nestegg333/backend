@@ -2,19 +2,11 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from rest_framework import viewsets
-from rest_framework import permissions
-from polls.models import Owner
-from polls.models import Payment
-from polls.models import Pet
+from rest_framework import viewsets, permissions
+from polls.models import Owner, Payment, Pet
 from django.contrib.auth.models import User
-from polls.serializers import UserSerializer
-from polls.serializers import OwnerSerializer
-from polls.serializers import PaymentSerializer
-from polls.serializers import PetSerializer
-from polls.serializers import TokenSerializer
-from djoser.views import LoginView
-from djoser.views import RegistrationView
+from polls.serializers import UserSerializer, OwnerSerializer, PaymentSerializer, PetSerializer, TokenSerializer
+from djoser.views import LoginView, RegistrationView
 from django.contrib.auth import get_user_model, user_logged_in, user_logged_out
 from rest_framework import generics, permissions, status, response, views
 from rest_framework.authtoken.models import Token
@@ -122,6 +114,9 @@ def pet_detail(request, pk):
 
 @csrf_exempt
 def owner_payment_list(request, pk):
+    """
+    Retrieve all payments associated with user or make a payment. 
+    """
 
     if request.method == 'GET':
         payments = Payment.objects.all().filter(owner=pk)
@@ -149,6 +144,11 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 class CustomLoginView(LoginView):
+    """
+    Custom login that returns both the token and the user
+    """
+    # original Djoser LoginView
+    # https://github.com/sunscrapers/djoser/blob/master/djoser/views.py
     def action(self, serializer):
         user = serializer.user
         token, _ = Token.objects.get_or_create(user=user)
@@ -158,11 +158,12 @@ class CustomLoginView(LoginView):
             status=status.HTTP_200_OK,
         )
 class CustomRegistrationView(RegistrationView):
-    ## how to create users using Djoser 
-    # original Djoser RegistrationView
-    # https://github.com/sunscrapers/djoser/blob/master/djoser/views.py
+    """
+    Custom registration that creates a user on NestEgg and on Dwolla
+    """
     def perform_create(self, serializer):
         user = serializer.validated_data
+        # if no email is entered, an email is generated from the username for the purposes of creating a Dwolla account
         if (user['email'] == ""):
             email = str(user['username']) + '@gmail.com'
         else:
@@ -171,9 +172,7 @@ class CustomRegistrationView(RegistrationView):
         signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
         # gets a token
         token = genauthtoken.genToken()
-        #first_name = str(user.first_name)
-        #last_name = str(user.last_name)
-        # need to somehow get the user that was just created
+        # makes a customer on Dwolla
         customer = customergen.makeCust(token, "test", "test2", email, "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
         if settings.get('SEND_ACTIVATION_EMAIL'):
             self.send_email(**self.get_send_email_kwargs(instance))

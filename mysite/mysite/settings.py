@@ -24,9 +24,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z9^sk#qom$7mn6gwbnzppg^yb69d)!s8m+1uo4lc$d+ewl+38_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'nestegg.herokuapp.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition

@@ -1,6 +1,4 @@
-from polls.models import Owner
-from polls.models import Payment
-from polls.models import Pet
+from polls.models import Owner, Payment, Pet
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers
