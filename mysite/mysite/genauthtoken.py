@@ -23,6 +23,6 @@ def genToken():
 	faccess = open('access_token.txt', 'w+')
 	faccess.write(newAccess)
 	frefresh.write(newRefresh)
+	return newAccess
 
-genToken()
 

@@ -166,7 +166,7 @@ class CustomRegistrationView(RegistrationView):
         # gets a token
         token = genauthtoken.genToken()
         # need to somehow get the user that was just created
-        customer = customergen.makeCust(token, "", "","email", "", "", "", "", "1", "1234", "5555555555")
+        customer = customergen.makeCust(token,"peter", "chen", "pcchen@princeton.edu", "1234 rolling hills dr", "morgantown", "wv", "26508", "1994-01-01", "1234", "5555555555")
         if settings.get('SEND_ACTIVATION_EMAIL'):
             self.send_email(**self.get_send_email_kwargs(instance))
 
