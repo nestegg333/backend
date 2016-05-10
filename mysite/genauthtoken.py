@@ -1,11 +1,9 @@
 import requests
 import json
 import sys
-import time
-
 
 def genToken():
-	frefresh = open('refresh_token.txt', 'w+')
+	frefresh = open('refresh_token.txt', 'r')
 	inputtoken = frefresh.read()
 	url = 'https://uat.dwolla.com/oauth/v2/token'
 
@@ -21,7 +19,10 @@ def genToken():
 	newRefresh = parsed_json['refresh_token']
 	newAccess = parsed_json['access_token']
 
+	frefresh = open('refresh_token.txt', 'w+')
 	faccess = open('access_token.txt', 'w+')
 	faccess.write(newAccess)
 	frefresh.write(newRefresh)
+
+genToken()
 
