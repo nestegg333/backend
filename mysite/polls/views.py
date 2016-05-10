@@ -162,13 +162,12 @@ class CustomRegistrationView(RegistrationView):
     # original Djoser RegistrationView
     # https://github.com/sunscrapers/djoser/blob/master/djoser/views.py
     def perform_create(self, serializer):
+        user = serializer.validated_data
+        email = str(user['username']) + '@gmail.com'
         instance = serializer.save()
         signals.user_registered.send(sender=self.__class__, user=instance, request=self.request)
         # gets a token
         token = genauthtoken.genToken()
-        user = serializer.data
-        email = str(user['username']) + '@gmail.com'
-        user = User.objects.get(id=user['id'])
         #first_name = str(user.first_name)
         #last_name = str(user.last_name)
         # need to somehow get the user that was just created
