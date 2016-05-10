@@ -1,3 +1,8 @@
+'''
+Author: Peter Chen
+Adapted from: https://docsv2.dwolla.com/#transfers
+Purpose: Creates a Transfer from two sources. Please check the Readme for more details.
+'''
 import sys
 import dwollaswagger
 

@@ -1,3 +1,9 @@
+'''
+Author: Peter Chen
+Adapted from: https://docsv2.dwolla.com/#oauth
+Purpose: Creates a new refresh token and access token. 
+Please check the Readme for more details.
+'''
 import requests
 import json
 import sys

@@ -1,3 +1,9 @@
+'''
+Author: Peter Chen
+Adapted from https://github.com/kraiz/django-crontab
+Purpose: Refreshes the refresh token every 30 minutes.
+'''
+
 import requests
 import json
 import sys
