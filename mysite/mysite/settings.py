@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z9^sk#qom$7mn6gwbnzppg^yb69d)!s8m+1uo4lc$d+ewl+38_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'nestegg.herokuapp.com',
@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'annoying',
     'djoser',
-    'django_crontab'
+    'django_crontab',
+    'django_extensions'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -150,3 +151,6 @@ STATICFILES_DIRS = (
 CRONJOBS = [
     ('0,30 * * * *', 'mysite.cron.gentoken')
 ]
+
+# Encrypted fields
+ENCRYPTED_FIELD_KEYS_DIR = os.path.join(PROJECT_ROOT, '../keyset/')

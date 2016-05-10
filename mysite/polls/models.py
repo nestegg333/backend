@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from annoying.fields import AutoOneToOneField
+from django_extensions.db.fields.encrypted import EncryptedCharField
 
 class Pet(models.Model):
     name = models.CharField(max_length=255)
@@ -50,8 +51,8 @@ class Owner(models.Model):
 	numPets = models.PositiveIntegerField(default=1)
 	goal = models.PositiveIntegerField(default=100)
 	progress = models.IntegerField(default=0)
-	checkNum = models.PositiveIntegerField(default=0)
-	saveNum =models.PositiveIntegerField(default=0)
+	checkNum = EncryptedCharField(default="1234")
+	saveNum = EncryptedCharField(default="1234")
 	_interactionOrder = property(interactionOrder)
 	_baseCost = property(baseCost)
 	numTrans = models.PositiveIntegerField(default=0)
@@ -61,7 +62,7 @@ class Owner(models.Model):
 	state = models.CharField(max_length=100, default="NJ")
 	postalcode = models.CharField(max_length=5, default="08544")
 	dob = models.CharField(max_length=10, default="1995-01-01")
-	ssn = models.CharField(max_length=15, default="1234")
+	ssn = EncryptedCharField(max_length=15, default="1234")
 	phone = models.CharField(max_length=15, default="1234567890") 
 
 
