@@ -1,3 +1,8 @@
+'''
+Author: Peter Chen
+Adapted from: https://docsv2.dwolla.com/#customers
+Purpose: Adds customer to Dwolla API. Please check the Readme for more details.
+'''
 import sys
 import dwollaswagger
 import requests

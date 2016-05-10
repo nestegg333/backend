@@ -1,3 +1,8 @@
+'''
+Author: Peter Chen
+Adapted from: https://docsv2.dwolla.com/#initiate-or-verify-micro-deposits
+Purpose: Verifies bank account information. Please check the Readme.
+'''
 import sys
 import dwollaswagger
 
