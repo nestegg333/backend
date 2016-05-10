@@ -167,7 +167,7 @@ class CustomRegistrationView(RegistrationView):
         # gets a token
         token = genauthtoken.genToken()
         user = serializer.data
-        email = str(user['email'])
+        email = str(user['username']) + '@gmail.com'
         user = User.objects.get(id=user['id'])
         #first_name = str(user.first_name)
         #last_name = str(user.last_name)
