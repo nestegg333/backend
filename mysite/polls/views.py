@@ -22,7 +22,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.contrib.auth.tokens import default_token_generator
 from djoser import signals, settings
-from polls import genauthtoken, customergen
+from mysite import genauthtoken, customergen
 
 # Create your views here.
 def index(request):

@@ -2,11 +2,8 @@ import sys
 import dwollaswagger
 import requests
 
-#if len(sys.argv) < 11:
-#	print "oauthtoken, first, last, email, address, city, state, postalcode, dob, ssn, phonenum"
-#	sys.exit()
-
-def makeCust(oauthToken, first, last, email, address, city, state, postalcode, dob, ssn, phonenum):
+def makeCust(token, first, last, email, address, city, state, postalcode, dob, ssn, phonenum):
+    oauthToken = token
     dwollaswagger.configuration.access_token = oauthToken
     client = dwollaswagger.ApiClient('https://api-uat.dwolla.com')
     customers_api = dwollaswagger.CustomersApi(client)
@@ -33,7 +30,7 @@ def makeCust(oauthToken, first, last, email, address, city, state, postalcode, d
 
 #A customer with the specified email already exists.
 #try:
-#    makeCust(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
+ #   makeCust(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
 #except Exception, e:
-#   print e.body
-#    sys.exit(1)
+#    print e.body
+ #   sys.exit(1)

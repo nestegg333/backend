@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'annoying',
-    'djoser'
+    'djoser',
+    'django_crontab'
 ]
 
 MIDDLEWARE_CLASSES = [

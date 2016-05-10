@@ -25,4 +25,3 @@ def genToken():
 	faccess.write(newAccess)
 	frefresh.write(newRefresh)
 
-gentoken()
